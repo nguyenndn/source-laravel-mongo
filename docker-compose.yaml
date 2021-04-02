@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  # container for API
+  web:
+    build: .
+    restart: always
+    ports:
+      - 9005:80
+    depends_on:
+      - db
+    volumes:
+      - ./src:/var/www/app
+    environment:
+      - PHP_MEM_LIMIT=2048M
+  db:
+    image: mongo
+    restart: always
+    ports:
+      - 27021:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: 12345
+
